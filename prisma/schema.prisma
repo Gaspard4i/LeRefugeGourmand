@@ -1,0 +1,171 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Modèle Utilisateur
+model User {
+  id              String           @id @default(cuid())
+  email           String           @unique
+  password        String
+  firstName       String
+  lastName        String
+  phone           String?
+  loyaltyPoints   Int              @default(0)
+  newsletterOptIn Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  reservations    Reservation[]
+  loyaltyRewards  LoyaltyReward[]
+  promoCodes      PromoCode[]
+
+  @@map("users")
+}
+
+// Modèle Localisation (Ville)
+model Location {
+  id          String        @id @default(cuid())
+  city        String        @unique
+  address     String
+  phone       String
+  email       String
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  rooms       Room[]
+  reservations Reservation[]
+
+  @@map("locations")
+}
+
+// Modèle Salle
+model Room {
+  id            String        @id @default(cuid())
+  locationId    String
+  capacity      Int
+  name          String
+  description   String
+  features      String[]
+  images        String[]
+  pricePerHour  Float
+  depositAmount Float
+  isAvailable   Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  location      Location      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  reservations  Reservation[]
+
+  @@map("rooms")
+}
+
+// Modèle Réservation
+model Reservation {
+  id                String    @id @default(cuid())
+  userId            String
+  roomId            String
+  locationId        String
+  date              DateTime
+  startTime         String
+  duration          Int       // en heures
+  numberOfGuests    Int
+  status            String    @default("pending") // pending, confirmed, cancelled, completed
+  depositPaid       Boolean   @default(false)
+  depositAmount     Float
+  depositRefunded   Boolean   @default(false)
+  totalAmount       Float
+  specialRequests   String?
+  phoneReservation  Boolean   @default(false)
+  phoneNumber       String?
+  stripePaymentId   String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room              Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  location          Location  @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@map("reservations")
+}
+
+// Modèle Menu
+model Menu {
+  id            String    @id @default(cuid())
+  name          String
+  description   String
+  type          String    // classic, seasonal, ephemeral
+  price         Float?
+  availableFrom DateTime?
+  availableTo   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  items         MenuItem[]
+
+  @@map("menus")
+}
+
+// Modèle Élément de Menu
+model MenuItem {
+  id            String   @id @default(cuid())
+  menuId        String
+  name          String
+  description   String
+  price         Float
+  category      String   // starter, main, dessert, drink
+  isEphemeral   Boolean  @default(false)
+  allergens     String[]
+  isVegetarian  Boolean  @default(false)
+  isVegan       Boolean  @default(false)
+  images        String[]
+  availableAt   String[] // cities
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  menu          Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+
+  @@map("menu_items")
+}
+
+// Modèle Points de Fidélité
+model LoyaltyReward {
+  id        String   @id @default(cuid())
+  userId    String
+  points    Int
+  reason    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("loyalty_rewards")
+}
+
+// Modèle Code Promo
+model PromoCode {
+  id                        String    @id @default(cuid())
+  code                      String    @unique
+  userId                    String?
+  discountType              String    // percentage, fixed
+  discountValue             Float
+  validFrom                 DateTime
+  validTo                   DateTime
+  usageLimit                Int       @default(1)
+  usedCount                 Int       @default(0)
+  minimumSpend              Float?
+  generatedFromLoyaltyPoints Boolean  @default(false)
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+
+  user                      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("promo_codes")
+}

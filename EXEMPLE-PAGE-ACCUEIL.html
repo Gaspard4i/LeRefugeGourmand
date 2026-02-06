@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Refuge Gourmand - Exemple Page d'Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Tailwind Config */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #282F38;
+            color: #F5F5F0;
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(212, 180, 115, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 180, 115, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(40, 47, 56, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 180, 115, 0.2);
+        }
+
+        /* Luxury gradient */
+        .luxury-gradient {
+            background: linear-gradient(135deg, #D4B473 0%, #F5E6C8 50%, #C4A463 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Gradient border */
+        .gradient-border {
+            position: relative;
+            background: #282F38;
+            border-radius: 12px;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, #D4B473, rgba(212, 180, 115, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        /* Hover lift */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 180, 115, 0.1);
+        }
+
+        /* Button glow */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-glow:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #282F38;
+            border-left: 1px solid rgba(212, 180, 115, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(212, 180, 115, 0.5), rgba(212, 180, 115, 0.3));
+            border-radius: 6px;
+            border: 2px solid #282F38;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 glass shadow-lg shadow-black/20">
+    <div class="max-w-7xl mx-auto px-6 py-5">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="group flex items-center">
+                <h1 class="font-serif text-3xl luxury-gradient group-hover:scale-105 transition-transform duration-300">
+                    Le Refuge Gourmand
+                </h1>
+            </a>
+
+            <!-- Navigation Desktop -->
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="/" class="px-4 py-2 text-gray-200 hover:text-yellow-400 font-medium transition-colors">
+                    Accueil
+                </a>
+                <a href="/reservation" class="px-4 py-2 text-gray-200 hover:text-yellow-400 font-medium transition-colors">
+                    Réserver
+                </a>
+                <a href="/menus" class="px-4 py-2 text-gray-200 hover:text-yellow-400 font-medium transition-colors">
+                    Nos Menus
+                </a>
+                <a href="/contact" class="px-4 py-2 text-gray-200 hover:text-yellow-400 font-medium transition-colors">
+                    Contact
+                </a>
+                <a href="/account" class="ml-4 px-6 py-2.5 border-2 border-yellow-600 text-yellow-600 rounded-lg hover:bg-yellow-600 hover:text-gray-900 font-semibold btn-glow hover-lift shadow-lg shadow-yellow-600/20 transition-all">
+                    Mon Compte
+                </a>
+            </nav>
+
+            <!-- Menu Mobile -->
+            <button class="md:hidden p-2 text-yellow-600 hover:bg-yellow-600/10 rounded-lg transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="padding-top: 80px;">
+    <!-- Animated background -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-900"></div>
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-yellow-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-yellow-600/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="relative z-20 text-center px-6 max-w-6xl mx-auto animate-fade-in">
+        <div class="mb-6">
+            <span class="inline-block px-6 py-2 rounded-full glass text-yellow-600 text-sm font-semibold tracking-wider mb-8">
+                ✦ EXPÉRIENCE PREMIUM ✦
+            </span>
+        </div>
+
+        <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl font-bold luxury-gradient mb-8 leading-tight">
+            Le Refuge<br />Gourmand
+        </h1>
+
+        <p class="text-2xl md:text-4xl text-gray-200 mb-4 max-w-4xl mx-auto font-light leading-relaxed">
+            L'intimité absolue dans nos salles privées insonorisées
+        </p>
+
+        <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
+            Une expérience culinaire raffinée où chaque moment vous appartient
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="/reservation" class="group px-10 py-5 bg-gradient-to-r from-yellow-600 to-yellow-700 text-gray-900 font-bold text-lg rounded-xl hover:shadow-2xl hover:shadow-yellow-600/50 transition-all transform hover:scale-105 btn-glow relative overflow-hidden">
+                <span class="relative z-10">Réserver une Table</span>
+            </a>
+            <a href="/menus" class="group px-10 py-5 border-2 border-yellow-600 text-yellow-600 font-bold text-lg rounded-xl hover:bg-yellow-600/10 transition-all hover-lift glass backdrop-blur-sm">
+                Découvrir nos Menus
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20">
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-yellow-600/70 text-xs uppercase tracking-widest">Défiler</span>
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- Concept Section -->
+<section class="py-32 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20">
+            <h2 class="font-serif text-6xl md:text-7xl luxury-gradient mb-6">
+                Notre Concept
+            </h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Une nouvelle approche de la gastronomie, alliant intimité, technologie et excellence culinaire
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Privacy -->
+            <div class="gradient-border p-8 hover-lift group">
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-600/30 to-yellow-700/10 rounded-2xl flex items-center justify-center mb-8 mx-auto group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-6 text-center">Intimité Totale</h3>
+                    <p class="text-gray-300 text-center leading-relaxed text-lg">
+                        Salles entièrement insonorisées avec murs physiques. Votre privacy est notre priorité absolue.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Ambiance -->
+            <div class="gradient-border p-8 hover-lift group">
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-600/30 to-yellow-700/10 rounded-2xl flex items-center justify-center mb-8 mx-auto group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-6 text-center">Ambiance Raffinée</h3>
+                    <p class="text-gray-300 text-center leading-relaxed text-lg">
+                        Décor inspiré des bureaux chics : bois noble, cuir authentique et lumière tamisée.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Cuisine -->
+            <div class="gradient-border p-8 hover-lift group">
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-600/30 to-yellow-700/10 rounded-2xl flex items-center justify-center mb-8 mx-auto group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-6 text-center">Cuisine Locale</h3>
+                    <p class="text-gray-300 text-center leading-relaxed text-lg">
+                        Produits de saison et de nos régions. Un menu éphémère renouvelé chaque semaine.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Locations Section -->
+<section class="py-20 px-6 bg-gradient-to-b from-transparent via-yellow-600/5 to-transparent">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="font-serif text-6xl md:text-7xl luxury-gradient text-center mb-16">
+            Nos Établissements
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Lille -->
+            <div class="group relative overflow-hidden rounded-2xl gradient-border hover-lift">
+                <div class="aspect-[4/3] bg-gradient-to-br from-yellow-600/20 to-gray-900/80 flex items-center justify-center">
+                    <span class="text-7xl">🏰</span>
+                </div>
+                <div class="p-6 glass relative z-10">
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-2">Lille</h3>
+                    <p class="text-gray-400 mb-4">
+                        Ouvert du mardi au dimanche<br />
+                        11h30 - 22h00
+                    </p>
+                    <a href="/reservation?city=lille" class="inline-flex items-center gap-2 text-yellow-600 hover:text-yellow-500 font-semibold group">
+                        Réserver
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Paris -->
+            <div class="group relative overflow-hidden rounded-2xl gradient-border hover-lift">
+                <div class="aspect-[4/3] bg-gradient-to-br from-yellow-600/20 to-gray-900/80 flex items-center justify-center">
+                    <span class="text-7xl">🗼</span>
+                </div>
+                <div class="p-6 glass relative z-10">
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-2">Paris</h3>
+                    <p class="text-gray-400 mb-4">
+                        Ouvert du mardi au dimanche<br />
+                        11h30 - 22h00
+                    </p>
+                    <a href="/reservation?city=paris" class="inline-flex items-center gap-2 text-yellow-600 hover:text-yellow-500 font-semibold group">
+                        Réserver
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Lyon -->
+            <div class="group relative overflow-hidden rounded-2xl gradient-border hover-lift">
+                <div class="aspect-[4/3] bg-gradient-to-br from-yellow-600/20 to-gray-900/80 flex items-center justify-center">
+                    <span class="text-7xl">🌉</span>
+                </div>
+                <div class="p-6 glass relative z-10">
+                    <h3 class="text-3xl font-serif text-yellow-600 mb-2">Lyon</h3>
+                    <p class="text-gray-400 mb-4">
+                        Ouvert du mardi au dimanche<br />
+                        11h30 - 22h00
+                    </p>
+                    <a href="/reservation?city=lyon" class="inline-flex items-center gap-2 text-yellow-600 hover:text-yellow-500 font-semibold group">
+                        Réserver
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="py-20 px-6 bg-gradient-to-t from-transparent via-yellow-600/10 to-transparent">
+    <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-serif text-5xl md:text-6xl luxury-gradient mb-6">
+            Prêt à Vivre l'Expérience ?
+        </h2>
+        <p class="text-xl text-gray-400 mb-8">
+            Réservez dès maintenant votre salle privée et découvrez une nouvelle façon de savourer l'instant présent.
+        </p>
+        <a href="/reservation" class="inline-block px-12 py-5 bg-gradient-to-r from-yellow-600 to-yellow-700 text-gray-900 font-bold text-xl rounded-xl hover:shadow-2xl hover:shadow-yellow-600/50 transition-all transform hover:scale-105 btn-glow">
+            Réserver Maintenant
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="relative border-t border-yellow-600/20 py-16 px-6 bg-gradient-to-b from-transparent to-gray-950 overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-yellow-600 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-600 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+            <!-- À propos -->
+            <div class="space-y-4">
+                <h3 class="font-serif text-3xl luxury-gradient mb-4">
+                    Le Refuge Gourmand
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    L'intimité au service de la gastronomie. Des salles privées insonorisées pour des moments uniques.
+                </p>
+            </div>
+
+            <!-- Navigation -->
+            <div>
+                <h4 class="text-yellow-600 font-semibold mb-6 text-lg">Navigation</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="/" class="hover:text-yellow-600 transition-colors">Accueil</a></li>
+                    <li><a href="/reservation" class="hover:text-yellow-600 transition-colors">Réserver</a></li>
+                    <li><a href="/menus" class="hover:text-yellow-600 transition-colors">Nos Menus</a></li>
+                    <li><a href="/contact" class="hover:text-yellow-600 transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Villes -->
+            <div>
+                <h4 class="text-yellow-600 font-semibold mb-6 text-lg">Nos Villes</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="/reservation?city=lille" class="hover:text-yellow-600 transition-colors">Lille</a></li>
+                    <li><a href="/reservation?city=paris" class="hover:text-yellow-600 transition-colors">Paris</a></li>
+                    <li><a href="/reservation?city=lyon" class="hover:text-yellow-600 transition-colors">Lyon</a></li>
+                </ul>
+            </div>
+
+            <!-- Horaires -->
+            <div>
+                <h4 class="text-yellow-600 font-semibold mb-6 text-lg">Horaires</h4>
+                <div class="text-gray-400 space-y-4">
+                    <div class="glass p-4 rounded-lg">
+                        <p class="text-yellow-600 font-semibold mb-1">Mardi - Dimanche</p>
+                        <p class="text-sm">11h30 - 22h00</p>
+                    </div>
+                    <p class="text-yellow-600/70 text-sm italic">Fermé le lundi</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-yellow-600/20 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+                <p>&copy; 2026 Le Refuge Gourmand. Tous droits réservés.</p>
+                <div class="flex gap-6">
+                    <a href="/legal/terms" class="hover:text-yellow-600 transition-colors">CGV</a>
+                    <a href="/legal/privacy" class="hover:text-yellow-600 transition-colors">Confidentialité</a>
+                    <a href="/legal/rules" class="hover:text-yellow-600 transition-colors">Règlement</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+

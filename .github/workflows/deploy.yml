@@ -5,13 +5,18 @@ on:
     branches:
       - main
 
+# Give the workflow the permissions to write repo contents and pages so the deploy action can push
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Setup Node
         uses: actions/setup-node@v4

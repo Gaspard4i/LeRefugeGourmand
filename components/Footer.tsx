@@ -23,10 +23,10 @@ export default function Footer() {
               Des salles privées insonorisées pour des moments uniques.
             </p>
             <div className="flex gap-4 pt-4">
-              <a href="https://twitter.com/lerefugegourmand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-champagne-gold/20 hover-lift transition-all">
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-champagne-gold/20 hover-lift transition-all">
                 <FontAwesomeIcon icon={faXTwitter} className="w-5 h-5 text-champagne-gold" />
               </a>
-              <a href="https://instagram.com/lerefugegourmand" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-champagne-gold/20 hover-lift transition-all">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-champagne-gold/20 hover-lift transition-all">
                 <FontAwesomeIcon icon={faInstagram} className="w-5 h-5 text-champagne-gold" />
               </a>
             </div>

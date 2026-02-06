@@ -1,3 +1,7 @@
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import Link from 'next/link';
+
 export default function RulesPage() {
   return (
     <div className="min-h-screen bg-slate-night py-12 px-4">
@@ -27,7 +31,7 @@ export default function RulesPage() {
             </p>
             <ul className="space-y-2 list-disc list-inside">
               <li>Les espaces communs (entrée, couloirs) sont surveillés par caméras.</li>
-              <li>Les salles privées ne sont PAS équipées de caméras pour garantir votre intimité.</li>
+              <li>Les salles privées sont équipées de caméras.</li>
               <li>Les enregistrements sont conservés conformément à la réglementation en vigueur (RGPD).</li>
             </ul>
           </section>
@@ -49,7 +53,7 @@ export default function RulesPage() {
             </h2>
             <div className="bg-champagne-gold/10 border border-champagne-gold/30 rounded-lg p-4 mb-4">
               <p className="font-semibold text-champagne-gold mb-2">
-                ⚠️ Toute dégradation du mobilier, des équipements ou des locaux sera facturée.
+                  <FontAwesomeIcon icon={faExclamationTriangle} /> Toute dégradation du mobilier, des équipements ou des locaux sera facturée.
               </p>
             </div>
             <ul className="space-y-2 list-disc list-inside">
@@ -132,15 +136,11 @@ export default function RulesPage() {
         </div>
 
         <div className="mt-8 text-center">
-          <a
-            href="/reservation"
-            className="inline-block px-8 py-4 bg-champagne-gold text-slate-night font-bold rounded-lg hover:bg-champagne-gold/90 transition-all"
-          >
+          <Link href="/reservation" className="inline-block px-8 py-4 bg-champagne-gold text-slate-night font-bold rounded-lg hover:bg-champagne-gold/90 transition-all">
             Retour à la Réservation
-          </a>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
-

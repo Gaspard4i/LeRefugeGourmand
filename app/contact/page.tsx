@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faMapMarkerAlt, faEnvelope, faPhone} from '@fortawesome/free-solid-svg-icons';
 import {faClock} from "@fortawesome/free-regular-svg-icons";
 import {faInstagram, faXTwitter} from "@fortawesome/free-brands-svg-icons";
+import { CITIES } from '@/data/cities';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -106,9 +107,9 @@ export default function ContactPage() {
                   className="w-full px-4 py-3 bg-slate-night border border-champagne-gold/30 rounded-lg text-cream-light focus:border-champagne-gold focus:outline-none"
                 >
                   <option value="">Sélectionnez une ville</option>
-                  <option value="lille">Lille</option>
-                  <option value="paris">Paris</option>
-                  <option value="lyon">Lyon</option>
+                  {CITIES.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
                 </select>
               </div>
 
@@ -169,24 +170,14 @@ export default function ContactPage() {
                 sans caution (appel non masqué requis).
               </p>
               <div className="space-y-3">
-                <div className="bg-slate-night/50 rounded-lg p-4">
-                  <div className="text-champagne-gold font-semibold mb-1">Lille</div>
-                  <a href="tel:+33300000000" className="text-cream-light hover:text-champagne-gold transition-colors">
-                    +33 3 XX XX XX XX
-                  </a>
-                </div>
-                <div className="bg-slate-night/50 rounded-lg p-4">
-                  <div className="text-champagne-gold font-semibold mb-1">Paris</div>
-                  <a href="tel:+33100000000" className="text-cream-light hover:text-champagne-gold transition-colors">
-                    +33 1 XX XX XX XX
-                  </a>
-                </div>
-                <div className="bg-slate-night/50 rounded-lg p-4">
-                  <div className="text-champagne-gold font-semibold mb-1">Lyon</div>
-                  <a href="tel:+33400000000" className="text-cream-light hover:text-champagne-gold transition-colors">
-                    +33 4 XX XX XX XX
-                  </a>
-                </div>
+                {CITIES.map((c) => (
+                  <div key={c.id} className="bg-slate-night/50 rounded-lg p-4">
+                    <div className="text-champagne-gold font-semibold mb-1">{c.name}</div>
+                    <a href={`tel:+33300000000`} className="text-cream-light hover:text-champagne-gold transition-colors">
+                      +33 3 XX XX XX XX
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -214,29 +205,16 @@ export default function ContactPage() {
                 Nos Adresses
               </h3>
               <div className="space-y-4">
-                <div>
-                  <div className="text-champagne-gold font-semibold mb-1">Lille</div>
-                  <div className="text-cream-light/80 text-sm">
-                    123 Rue de la République<br />
-                    59000 Lille, France
+                {CITIES.map((c) => (
+                  <div key={c.id}>
+                    <div className="text-champagne-gold font-semibold mb-1">{c.name}</div>
+                    <div className="text-cream-light/80 text-sm">
+                      {c.address}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div className="text-champagne-gold font-semibold mb-1">Paris</div>
-                  <div className="text-cream-light/80 text-sm">
-                    45 Avenue des Champs-Élysées<br />
-                    75008 Paris, France
-                  </div>
-                </div>
-                <div>
-                  <div className="text-champagne-gold font-semibold mb-1">Lyon</div>
-                  <div className="text-cream-light/80 text-sm">
-                    78 Rue de la Bourse<br />
-                    69002 Lyon, France
-                  </div>
-                </div>
-              </div>
-            </div>
+                ))}
+               </div>
+             </div>
 
             {/* Email */}
             <div className="bg-slate-night/50 border border-champagne-gold/30 rounded-lg p-6">
@@ -283,4 +261,3 @@ export default function ContactPage() {
     </div>
   );
 }
-

@@ -1,6 +1,6 @@
 // Types globaux pour l'application LeRefugeGourmand
 
-export type City = 'lille' | 'paris' | 'lyon';
+export type City = 'lille';
 
 export type RoomCapacity = 1 | 2 | 4 | 8 | 12 | 20 | 30;
 
@@ -138,4 +138,3 @@ export const CANCELLATION_DEADLINE_HOURS = 3;
 
 // Points de fidélité par euro dépensé
 export const LOYALTY_POINTS_PER_EURO = 10;
-

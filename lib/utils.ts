@@ -13,7 +13,7 @@ export function cn(...inputs: (string | undefined | null | false)[]): string {
  */
 export function calculateDeposit(capacity: number): number {
   const policy = DEPOSIT_POLICIES.find((p) => p.capacity >= capacity);
-  return policy?.amount ?? 50; // 50€ par défaut pour les grandes capacités
+  return policy?.amount ?? 20; // 20€ par défaut
 }
 
 /**
@@ -116,8 +116,6 @@ export function formatDuration(hours: number): string {
 export function getCityName(city: City): string {
   const cityNames: Record<City, string> = {
     lille: 'Lille',
-    paris: 'Paris',
-    lyon: 'Lyon',
-  };
-  return cityNames[city];
+  } as Record<string, string>;
+  return cityNames[city] ?? 'Lille';
 }

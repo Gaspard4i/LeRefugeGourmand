@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import EstablishmentsGrid from '@/components/molecules/EstablishmentsGrid';
 
 export default function HomePage() {
   return (
@@ -91,35 +92,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Locations Section */}
+      {/* Nos Établissements - compact grid */}
       <section className="py-20 px-4 bg-slate-night/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="font-serif text-4xl md:text-5xl text-champagne-gold text-center mb-16">
-            Nos Établissements
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {['Lille', 'Paris', 'Lyon'].map((city) => (
-              <div key={city} className="group relative overflow-hidden rounded-lg border border-champagne-gold/30 hover:border-champagne-gold transition-all">
-                <div className="aspect-[4/3] bg-gradient-to-br from-champagne-gold/20 to-slate-night/80 flex items-center justify-center">
-                  <span className="text-5xl font-serif text-champagne-gold">{city}</span>
-                </div>
-                <div className="p-6 bg-slate-night/80">
-                  <h3 className="text-2xl font-serif text-champagne-gold mb-2">{city}</h3>
-                  <p className="text-cream-light/70 mb-4">
-                    Ouvert du mardi au dimanche<br />
-                    11h30 - 22h00
-                  </p>
-                  <Link
-                    href={`/reservation?city=${city.toLowerCase()}`}
-                    className="inline-block text-champagne-gold hover:text-champagne-gold/80 font-semibold"
-                  >
-                    Réserver →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-champagne-gold text-center mb-10">Nos Établissements</h2>
+          <EstablishmentsGrid />
         </div>
       </section>
 
@@ -168,4 +145,3 @@ export default function HomePage() {
     </div>
   );
 }
-

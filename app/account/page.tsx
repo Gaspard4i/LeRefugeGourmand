@@ -8,10 +8,13 @@ import {
     faCalendar,
     faEnvelope,
     faSackDollar,
+    faUtensils,
     faUserGroup,
-    faUtensils
 } from "@fortawesome/free-solid-svg-icons";
 import {faClock} from "@fortawesome/free-regular-svg-icons";
+import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // Données de démonstration (à remplacer par des appels API)
 const MOCK_USER = {
@@ -28,7 +31,7 @@ const MOCK_RESERVATIONS = [
     id: '1',
     date: new Date('2026-03-15'),
     time: '19:30',
-    location: 'Paris',
+    location: 'Lille',
     capacity: 4,
     guests: 4,
     status: 'confirmed',
@@ -48,7 +51,7 @@ const MOCK_RESERVATIONS = [
     id: '3',
     date: new Date('2026-01-10'),
     time: '12:30',
-    location: 'Lyon',
+    location: 'Lille',
     capacity: 8,
     guests: 7,
     status: 'completed',
@@ -58,10 +61,25 @@ const MOCK_RESERVATIONS = [
 
 export default function AccountPage() {
   const [activeTab, setActiveTab] = useState<'reservations' | 'profile' | 'loyalty'>('reservations');
-  const [user, setUser] = useState(MOCK_USER);
+  const { user, logout, updateUser } = useAuth();
+  const router = useRouter();
 
-  const pointsToNextReward = 1000 - user.loyaltyPoints;
-  const canGeneratePromo = user.loyaltyPoints >= 500;
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-slate-night flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl text-cream-light mb-4">Vous n'êtes pas connecté</h2>
+          <div className="flex gap-3 justify-center">
+            <Link href="/auth/login" className="px-4 py-2 bg-champagne-gold text-slate-night rounded">Se connecter</Link>
+            <Link href="/auth/register" className="px-4 py-2 border border-champagne-gold/30 text-cream-light rounded">Créer un compte</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const pointsToNextReward = 1000 - (user?.loyaltyPoints ?? 0);
+  const canGeneratePromo = (user?.loyaltyPoints ?? 0) >= 500;
 
   const handleGeneratePromo = () => {
     if (canGeneratePromo) {
@@ -76,12 +94,11 @@ export default function AccountPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="font-serif text-5xl text-champagne-gold mb-2">
-            Mon Compte
-          </h1>
-          <p className="text-cream-light/80 text-lg">
-            Bienvenue, {user.firstName} {user.lastName}
-          </p>
+          <h1 className="font-serif text-5xl text-champagne-gold mb-2">Mon Compte</h1>
+          <p className="text-cream-light/80 text-lg">Bienvenue, {user.firstName} {user.lastName}</p>
+          <div className="mt-3">
+            <button onClick={() => { logout(); router.push('/'); }} className="px-4 py-2 border border-champagne-gold/30 rounded">Se déconnecter</button>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -367,7 +384,7 @@ export default function AccountPage() {
                     <input
                       type="text"
                       value={user.firstName}
-                      onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+                      onChange={(e) => updateUser({ firstName: e.target.value })}
                       className="w-full px-4 py-3 bg-slate-night border border-champagne-gold/30 rounded-lg text-cream-light focus:border-champagne-gold focus:outline-none"
                     />
                   </div>
@@ -379,7 +396,7 @@ export default function AccountPage() {
                     <input
                       type="text"
                       value={user.lastName}
-                      onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+                      onChange={(e) => updateUser({ lastName: e.target.value })}
                       className="w-full px-4 py-3 bg-slate-night border border-champagne-gold/30 rounded-lg text-cream-light focus:border-champagne-gold focus:outline-none"
                     />
                   </div>
@@ -392,7 +409,7 @@ export default function AccountPage() {
                   <input
                     type="email"
                     value={user.email}
-                    onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    onChange={(e) => updateUser({ email: e.target.value })}
                     className="w-full px-4 py-3 bg-slate-night border border-champagne-gold/30 rounded-lg text-cream-light focus:border-champagne-gold focus:outline-none"
                   />
                 </div>
@@ -404,7 +421,7 @@ export default function AccountPage() {
                   <input
                     type="tel"
                     value={user.phone}
-                    onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                    onChange={(e) => updateUser({ phone: e.target.value })}
                     className="w-full px-4 py-3 bg-slate-night border border-champagne-gold/30 rounded-lg text-cream-light focus:border-champagne-gold focus:outline-none"
                   />
                 </div>
@@ -414,7 +431,7 @@ export default function AccountPage() {
                     <input
                       type="checkbox"
                       checked={user.newsletterOptIn}
-                      onChange={(e) => setUser({ ...user, newsletterOptIn: e.target.checked })}
+                      onChange={(e) => updateUser({ newsletterOptIn: e.target.checked })}
                       className="w-5 h-5 accent-champagne-gold"
                     />
                     <span className="text-cream-light/80">
@@ -490,4 +507,3 @@ export default function AccountPage() {
     </div>
   );
 }
-

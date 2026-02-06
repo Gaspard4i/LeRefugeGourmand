@@ -1,0 +1,9 @@
+1:"$Sreact.fragment"
+2:I[47257,["/LeRefugeGourmand/_next/static/chunks/ff1a16fafef87110.js","/LeRefugeGourmand/_next/static/chunks/d2be314c3ece3fbe.js"],"ClientPageRoot"]
+3:I[88111,["/LeRefugeGourmand/_next/static/chunks/3d4fb5487a1b59d5.js","/LeRefugeGourmand/_next/static/chunks/4f389ea6653876aa.js","/LeRefugeGourmand/_next/static/chunks/883569da99295853.js","/LeRefugeGourmand/_next/static/chunks/61b316b8d2964741.js"],"default"]
+6:I[97367,["/LeRefugeGourmand/_next/static/chunks/ff1a16fafef87110.js","/LeRefugeGourmand/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"buildId":"BzcHt73SX6JE97RZSP0dg","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/LeRefugeGourmand/_next/static/chunks/4f389ea6653876aa.js","async":true}],["$","script","script-1",{"src":"/LeRefugeGourmand/_next/static/chunks/883569da99295853.js","async":true}],["$","script","script-2",{"src":"/LeRefugeGourmand/_next/static/chunks/61b316b8d2964741.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+4:{}
+5:{}
+8:null

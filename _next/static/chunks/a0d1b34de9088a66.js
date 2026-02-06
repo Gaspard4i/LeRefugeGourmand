@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,82213,e=>{"use strict";e.s(["CITIES",0,[{id:"lille",name:"Lille",address:"59000 Lille, France",menus:["classic","seasonal","ephemeral"]}]])}]);
